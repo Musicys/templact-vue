@@ -2,7 +2,8 @@
    <div>
       {{ store.userinfo }}
    </div>
-
+   home
+   <input type="text" />
    <button @click="store.setUserInfo()">登录</button>
 </template>
 

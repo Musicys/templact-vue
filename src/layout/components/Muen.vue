@@ -6,7 +6,7 @@
       :router="true"
       @open="handleOpen"
       @close="handleClose">
-      <el-menu-item v-for="(item, index) in MENU" :key="index" :index="item.path" :route="item.path">
+      <el-menu-item v-for="(item, index) in MENU" :key="index" :closable="false" :index="item.path" :route="item.path">
          <el-icon>
             <component :is="item.meta.icon" />
          </el-icon>

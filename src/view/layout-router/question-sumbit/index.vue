@@ -2,9 +2,7 @@
    <div>
       <button @click="toggleComponent">切换组件</button>
       <!-- 使用 KeepAlive 包裹动态组件 -->
-      <KeepAlive>
-         <component :is="currentComponent" />
-      </KeepAlive>
+      <input type="text" />
    </div>
 </template>
 

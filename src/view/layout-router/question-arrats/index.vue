@@ -1,6 +1,7 @@
 <template>
    <div class="accelerator-container">
       {{ store.userinfo }}
+      <input type="text" />
    </div>
 </template>
 

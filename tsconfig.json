@@ -17,7 +17,7 @@
       "allowUnreachableCode": true, // 是否允许存在永远无法被执行的代码， 当设置为false即不允许存在，eslint会提示错误修复
       /* 模块解析选项 */
       "paths": {
-         "@/*": ["src/*"]
+         "@/*": ["./src/*"]
       },
       // "outDir": "./dist",
       "outDir": "./Scripts/TSOutput",

@@ -3,7 +3,7 @@
       {{ store.userinfo }}
    </div>
 
-   <button @click="store.setUserInfo()">登录</button>
+   <input type="text" />
 </template>
 
 <script setup>

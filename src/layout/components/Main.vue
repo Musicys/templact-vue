@@ -13,19 +13,19 @@
 
       <!-- 路由视图，添加过渡动画 -->
       <transition name="router-fade-slide" mode="out-in">
-         <keep-alive>
-            <RouterView v-slot="{ Component }">
-               <component :is="Component" />
-            </RouterView>
-         </keep-alive>
+         <RouterView v-slot="{ Component }">
+            <keep-alive :exclude="excludedComponents">
+               <component v-if="route.meta.keepAlive" :key="route.path" :is="Component" />
+            </keep-alive>
+            <component v-if="!route.meta.keepAlive" :key="route.path" :is="Component" />
+         </RouterView>
       </transition>
    </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-
 import MUENS from '@/router';
 const route = useRoute();
 const router = useRouter();
@@ -39,9 +39,9 @@ const handleTabClick = tab => {
    router.push(tab.props.name);
 };
 
-const handleTabRemove = targetName => {
-   console.log(targetName);
+const excludedComponents = ref<string[]>([]);
 
+const handleTabRemove = targetName => {
    const tabs = MUEN.value;
    const tabIndex = tabs.findIndex(tab => tab.path === targetName);
    const isActive = activeTab.value === targetName;
@@ -49,9 +49,12 @@ const handleTabRemove = targetName => {
       const newIndex = tabIndex > 0 ? tabIndex - 1 : tabIndex + 1;
       activeTab.value = tabs[newIndex]?.path || '';
    }
+
    MUEN.value = tabs.filter(tab => tab.path !== targetName);
 
-   router.push(activeTab.value);
+   router.push({
+      path: activeTab.value
+   });
 };
 
 watch(

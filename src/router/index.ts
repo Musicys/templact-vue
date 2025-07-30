@@ -38,6 +38,7 @@ const routes = [
                KeepAlive: true
             }
          },
+
          {
             path: '/question-arrats',
             name: '题目列表',

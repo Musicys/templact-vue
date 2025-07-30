@@ -18,7 +18,12 @@ const routes = [
    {
       path: '/404',
       name: '404',
-      component: () => import('@/view/layout-router/home-charts/index.vue')
+      component: () => import('@/view/notfound/404.vue')
+   },
+   {
+      path: '/401',
+      name: '401',
+      component: () => import('@/view/notfound/401.vue')
    },
    {
       path: '/pages',
@@ -34,8 +39,9 @@ const routes = [
             name: '主页',
             component: () => import('@/view/layout-router/home-charts/index.vue'),
             meta: {
-               icon: 'Goods',
-               KeepAlive: true
+               icon: 'Goods', //图标
+               keep: true, //路由缓存
+               exit: true //标签是否要关闭
             }
          },
 
@@ -45,7 +51,7 @@ const routes = [
             component: () => import('@/view/layout-router/question-arrats/index.vue'),
             meta: {
                icon: 'Flag',
-               KeepAlive: true
+               keep: true
             }
          },
          {
@@ -54,7 +60,7 @@ const routes = [
             component: () => import('@/view/layout-router/question-sumbit/index.vue'),
             meta: {
                icon: 'Ship',
-               KeepAlive: true
+               keep: true
             }
          }
       ]

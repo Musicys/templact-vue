@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const instance = axios.create({
-   baseURL: 'https://api.example.com',
-   timeout: 5000
+   baseURL: 'api/',
+   timeout: 100000000000000000
 });
 instance.interceptors.request.use(
    config => {

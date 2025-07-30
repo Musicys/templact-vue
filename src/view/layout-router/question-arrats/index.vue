@@ -1,8 +1,6 @@
 <template>
-   <div>
-      <div class="accelerator-container">
-         {{ store.userinfo }}
-      </div>
+   <div class="accelerator-container">
+      {{ store.userinfo }}
       <input type="text" />
    </div>
 </template>

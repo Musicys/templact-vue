@@ -35,6 +35,8 @@ const activeTab = ref(route.path);
 
 const MUEN = ref([]);
 
+const exitrouter = ref(true);
+
 const handleTabClick = tab => {
    router.push(tab.props.name);
 };
@@ -51,6 +53,10 @@ const handleTabRemove = targetName => {
    }
 
    MUEN.value = tabs.filter(tab => tab.path !== targetName);
+   exitrouter.value = false;
+   nextTick(() => {
+      exitrouter.value = true;
+   });
 
    router.push({
       path: activeTab.value
@@ -60,7 +66,6 @@ const handleTabRemove = targetName => {
 watch(
    () => route,
    newVal => {
-      console.log('路由信息了', newVal.matched[1]);
       for (let i = 0; i < MUEN.value.length; i++) {
          const item = MUEN.value[i];
          console.log(item.path, item.path === newVal.matched[1].path);
@@ -70,9 +75,6 @@ watch(
             return;
          }
       }
-
-      console.log('执行');
-
       MUEN.value.push(newVal.matched[1]);
       activeTab.value = newVal.matched[1].path;
    },

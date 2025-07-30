@@ -9,7 +9,8 @@ export default defineConfig({
    plugins: [
       vue(),
       AutoImport({
-         resolvers: [ElementPlusResolver()]
+         resolvers: [ElementPlusResolver()],
+         imports: ['vue', 'vue-router', 'pinia']
       }),
       Components({
          resolvers: [ElementPlusResolver()]
@@ -36,7 +37,7 @@ export default defineConfig({
       // 添加代理配置示例
       proxy: {
          '/api': {
-            target: 'https://api.example.com',
+            target: 'https://qq320.cc/',
             changeOrigin: true,
             rewrite: path => path.replace(/^\/api/, '')
          }

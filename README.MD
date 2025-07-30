@@ -10,7 +10,6 @@ pnpm add vue-router@4
 pnpm i vue-router-tab -S
 pnpm install pinia
 pnpm install sass sass-loader --save-dev
-
 pnpm install element-plus
 pnpm install -D unplugin-vue-components unplugin-auto-import
 PNPM install axios
@@ -42,6 +41,7 @@ npm run build
 # echarts
 # sass
 # element-plus [https://element-plus.org/zh-CN/component/overview.html]
+# unplugin-auto-import 自动引入
 ```
 
 

@@ -2,7 +2,8 @@
    <div>
       {{ store.userinfo }}
    </div>
-
+   home
+   <input type="text" />
    <input type="text" />
 </template>
 

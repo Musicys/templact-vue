@@ -3,7 +3,7 @@
       <!-- 左侧 logo 区域 -->
       <div class="logo-container">
          <!-- 这里使用 Element Plus Icon 示例，你可按需替换 -->
-         <el-icon class="logo-icon">
+         <el-icon class="logo-icon" @click="system.updateisCollapse">
             <Menu />
          </el-icon>
          <span class="system-name">后台管理系统</span>
@@ -33,9 +33,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-
 const router = useRouter();
-
+import { systemStore } from '@/store/modules/system';
+const system = systemStore();
 // 处理下拉菜单命令
 const handleCommand = (command: string) => {
    if (command === 'logout') {
@@ -64,6 +64,8 @@ const handleCommand = (command: string) => {
       .logo-icon {
          font-size: 24px;
          margin-right: 10px;
+         cursor: pointer;
+         margin-left: 10px;
       }
 
       .system-name {

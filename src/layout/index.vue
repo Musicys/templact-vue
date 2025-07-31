@@ -1,16 +1,10 @@
 <template>
    <div class="common-layout">
       <el-container>
-         <el-header>
-            <Footer></Footer>
-         </el-header>
+         <el-aside><Muen></Muen></el-aside>
          <el-container>
-            <el-aside width="200px">
-               <Muen></Muen>
-            </el-aside>
-            <el-main>
-               <Main></Main>
-            </el-main>
+            <el-header> <Footer></Footer></el-header>
+            <el-main> <Main></Main></el-main>
          </el-container>
       </el-container>
    </div>
@@ -44,6 +38,11 @@ onMounted(() => {
    }
    .el-menu {
       border-right: none !important;
+   }
+   .el-aside {
+      background: #545c64;
+      width: auto;
+      transition: all 0.3;
    }
 }
 </style>

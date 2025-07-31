@@ -1,10 +1,12 @@
 <template>
-   <div>
-      {{ store.userinfo }}
+   <div class="home">
+      <div>
+         {{ store.userinfo }}
+      </div>
+      home
+      <input type="text" />
+      <input type="text" />
    </div>
-   home
-   <input type="text" />
-   <input type="text" />
 </template>
 
 <script setup>
@@ -24,3 +26,10 @@ const toggleComponent = e => {
    currentComponent.value = `Hellowrod${e}`;
 };
 </script>
+
+<style lang="scss" scoped>
+.home {
+   height: 200vh;
+   width: 100%;
+}
+</style>

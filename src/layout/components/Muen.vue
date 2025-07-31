@@ -2,10 +2,20 @@
    <el-menu
       :default-active="route.path"
       class="el-menu-vertical-demo"
-      :collapse="isCollapse"
+      :collapse="system.isCollapse"
       :router="true"
+      active-text-color="#ffd04b"
+      background-color="#545c64"
+      text-color="#fff"
+      :unique-opened="true"
       @open="handleOpen"
       @close="handleClose">
+      <el-menu-item>
+         <el-icon>
+            <component :is="`Flag`" />
+         </el-icon>
+         <template #title>什么破系统</template>
+      </el-menu-item>
       <template v-for="(item, index) in MENU" :key="index">
          <el-menu-item
             v-if="!item.meta.setup"
@@ -42,11 +52,12 @@
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import router from '@/router';
+import { systemStore } from '@/store/modules/system';
 const route = useRoute();
+const system = systemStore();
 
 const MENU = ref([]);
 
-const isCollapse = ref(false);
 const handleOpen = (key: string, keyPath: string[]) => {
    console.log(key, keyPath);
 };

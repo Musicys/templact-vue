@@ -19,6 +19,13 @@
 import Footer from './components/footer.vue';
 import Main from './components/Main.vue';
 import Muen from './components/muen.vue';
+import { onMounted } from 'vue';
+import { useTabor } from 'vue3-tabor';
+const tabor = useTabor();
+
+onMounted(() => {
+   tabor.closeOthers();
+});
 </script>
 
 <style lang="scss" scoped>

@@ -43,6 +43,7 @@ declare module 'vue' {
     Hellowrod1: typeof import('./src/components/Hellowrod1.vue')['default']
     Hellowrod2: typeof import('./src/components/Hellowrod2.vue')['default']
     Hellowrod3: typeof import('./src/components/Hellowrod3.vue')['default']
+    Router: typeof import('./src/components/router.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

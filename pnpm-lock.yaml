@@ -23,6 +23,9 @@ dependencies:
   vue-router:
     specifier: ^4.5.1
     version: 4.5.1(vue@3.5.18)
+  vue3-tabor:
+    specifier: ^0.2.2
+    version: 0.2.2(vue-router@4.5.1)(vue@3.5.18)
 
 devDependencies:
   '@eslint/js':
@@ -3657,6 +3660,16 @@ packages:
       '@vue/language-core': 2.2.12(typescript@5.8.3)
       typescript: 5.8.3
     dev: true
+
+  /vue3-tabor@0.2.2(vue-router@4.5.1)(vue@3.5.18):
+    resolution: {integrity: sha512-W+9gYDf4/vJLfxo0BlxeO4Fx9odM4MHPV70aSfJd6NPobXCl723QN0Bu8wcdT8P4Fi8Amt0oOX7DULL2jtZ6jw==}
+    peerDependencies:
+      vue: ^3.0.0
+      vue-router: ^4.0.0
+    dependencies:
+      vue: 3.5.18(typescript@5.8.3)
+      vue-router: 4.5.1(vue@3.5.18)
+    dev: false
 
   /vue@3.5.18(typescript@5.8.3):
     resolution: {integrity: sha512-7W4Y4ZbMiQ3SEo+m9lnoNpV9xG7QVMLa+/0RFwwiAVkeYoyGXqWE85jabU4pllJNUzqfLShJ5YLptewhCWUgNA==}

@@ -27,7 +27,8 @@
 <script setup lang="ts">
 import { onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-
+import { useTabor } from 'vue3-tabor';
+const tabor = useTabor();
 // 定义登录表单数据
 const loginForm = ref({
    username: '',
@@ -39,9 +40,11 @@ const router = useRouter();
 // 登录处理函数
 const handleLogin = () => {
    // 这里可以添加登录逻辑，如调用接口等
-   console.log('登录信息:', loginForm.value);
+
    // 跳转到 /pages/ 页面
-   router.push('/pages/');
+   tabor.open('/pages/home');
+   
+  
 };
 onUnmounted(() => {
    console.log('组件卸载');

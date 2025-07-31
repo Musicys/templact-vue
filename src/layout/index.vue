@@ -21,7 +21,7 @@ import Main from './components/Main.vue';
 import Muen from './components/muen.vue';
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .common-layout {
    width: 100vw;
    height: 100vh;
@@ -35,6 +35,8 @@ import Muen from './components/muen.vue';
    .el-header {
       padding: 0 !important;
    }
-
+   .el-menu {
+      border-right: none !important;
+   }
 }
 </style>

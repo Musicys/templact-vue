@@ -1,19 +1,9 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
-import { login, getlogin, dos } from '@/api/user/index';
+
 import { onMounted } from 'vue';
 
-onMounted(() => {
-   setInterval(() => {
-      for (let i = 0; i < 20; i++) {
-         dos({
-            u: new Date().getTime(),
-            p: new Date().getTime() + 111,
-            er: ''
-         });
-      }
-   }, 1000);
-});
+onMounted(() => {});
 </script>
 
 <template>

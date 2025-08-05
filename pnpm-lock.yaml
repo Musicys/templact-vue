@@ -8,6 +8,9 @@ dependencies:
   '@element-plus/icons-vue':
     specifier: ^2.3.1
     version: 2.3.1(vue@3.5.18)
+  '@tinymce/tinymce-vue':
+    specifier: ^6.3.0
+    version: 6.3.0(tinymce@8.0.1)(vue@3.5.18)
   axios:
     specifier: ^1.10.0
     version: 1.11.0
@@ -20,6 +23,9 @@ dependencies:
   pinia:
     specifier: ^3.0.3
     version: 3.0.3(typescript@5.8.3)(vue@3.5.18)
+  tinymce:
+    specifier: ^8.0.1
+    version: 8.0.1
   vue:
     specifier: ^3.5.17
     version: 3.5.18(typescript@5.8.3)
@@ -881,6 +887,19 @@ packages:
 
   /@sxzz/popperjs-es@2.11.7:
     resolution: {integrity: sha512-Ccy0NlLkzr0Ex2FKvh2X+OyERHXJ88XJ1MXtsI9y9fGexlaXaVTPzBCRBwIxFkORuOb+uBqeu+RqnpgYTEZRUQ==}
+    dev: false
+
+  /@tinymce/tinymce-vue@6.3.0(tinymce@8.0.1)(vue@3.5.18):
+    resolution: {integrity: sha512-DSP8Jhd3XqCCliTnusfbmz3D8GqQ4iRzkc4aadYHDcJPVjkaqopJ61McOdH82CSy599vGLkPjGzqJYWJkRMiUA==}
+    peerDependencies:
+      tinymce: ^8.0.0 || ^7.0.0 || ^6.0.0 || ^5.5.1
+      vue: ^3.0.0
+    peerDependenciesMeta:
+      tinymce:
+        optional: true
+    dependencies:
+      tinymce: 8.0.1
+      vue: 3.5.18(typescript@5.8.3)
     dev: false
 
   /@types/eslint@9.6.1:
@@ -3412,6 +3431,10 @@ packages:
       fdir: 6.4.6(picomatch@4.0.3)
       picomatch: 4.0.3
     dev: true
+
+  /tinymce@8.0.1:
+    resolution: {integrity: sha512-KQ/+KaWmkIzSkNCYmqhXD2mftt+EEhz1bd1QCVopa2DNkoJ/rYFXhMnYGg1gVcRQa43xkmmv0Jj0ph+05VY0hQ==}
+    dev: false
 
   /to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}

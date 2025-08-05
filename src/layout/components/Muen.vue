@@ -123,7 +123,7 @@ onMounted(() => {
    border-right: 1px solid rgba(255, 255, 255, 0.1);
    position: relative;
    overflow: hidden;
-   transition: all 0.3s ease;
+   transition: all 0.1s ease;
 
    &::before {
       content: '';
@@ -142,7 +142,7 @@ onMounted(() => {
    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
    background: rgba(255, 255, 255, 0.05);
    backdrop-filter: blur(10px);
-   transition: all 0.3s ease;
+   transition: all 0.1s ease;
    display: flex;
    align-items: center;
 
@@ -156,7 +156,7 @@ onMounted(() => {
    display: flex;
    align-items: center;
    gap: 12px;
-   transition: all 0.3s ease;
+   transition: all 0.1s ease;
 
    .collapsed & {
       justify-content: center;
@@ -168,9 +168,9 @@ onMounted(() => {
    width: 40px;
    height: 40px;
    border-radius: 50%;
-   border: 2px solid rgba(255, 255, 255, 0.3);
+   border: 2px solid rgba(255, 255, 255, 0.1);
    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-   transition: all 0.3s ease;
+   transition: all 0.1s ease;
 
    .collapsed & {
       width: 35px;
@@ -181,7 +181,7 @@ onMounted(() => {
 .system-info {
    flex: 1;
    min-width: 0;
-   transition: all 0.3s ease;
+   transition: all 0.1s ease;
    overflow: hidden;
 }
 
@@ -190,12 +190,12 @@ onMounted(() => {
    font-weight: 700;
    color: white;
    margin: 0 0 4px 0;
-   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
    background: linear-gradient(45deg, #fff, #f0f0f0);
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
    background-clip: text;
-   transition: all 0.3s ease;
+   transition: all 0.1s ease;
 }
 
 .system-subtitle {
@@ -203,7 +203,7 @@ onMounted(() => {
    color: rgba(255, 255, 255, 0.7);
    margin: 0;
    font-weight: 300;
-   transition: all 0.3s ease;
+   transition: all 0.1s ease;
 }
 
 .el-menu-vertical {
@@ -211,7 +211,7 @@ onMounted(() => {
    border: none;
    background: transparent;
    padding: 10px 0;
-   transition: all 0.3s ease;
+   transition: all 0.1s ease;
 
    &.el-menu--collapse {
       width: 64px;
@@ -223,19 +223,19 @@ onMounted(() => {
 }
 
 .menu-item {
-   transition: all 0.3s ease;
+   transition: all 0.1s ease;
    height: 48px;
    line-height: 48px;
 
    &:hover {
       background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(102, 126, 234, 0.3);
+      border-color: rgba(102, 126, 234, 0.1);
       transform: translateX(4px);
       box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
    }
 
    &.is-active {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
       border-color: rgba(102, 126, 234, 0.6);
       box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 
@@ -250,16 +250,16 @@ onMounted(() => {
    .menu-icon {
       font-size: 18px;
       color: rgba(255, 255, 255, 0.8);
-      transition: all 0.3s ease;
+      transition: all 0.1s ease;
    }
 }
 
 .sub-menu {
-   transition: all 0.3s ease;
+   transition: all 0.1s ease;
 
    &:hover {
       background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(102, 126, 234, 0.3);
+      border-color: rgba(102, 126, 234, 0.1);
    }
 
    .el-sub-menu__title {
@@ -267,7 +267,7 @@ onMounted(() => {
       line-height: 48px;
       border-radius: 8px;
       color: rgba(255, 255, 255, 0.8) !important;
-      transition: all 0.3s ease;
+      transition: all 0.1s ease;
 
       &:hover {
          background: rgba(255, 255, 255, 0.1);
@@ -281,12 +281,12 @@ onMounted(() => {
       .menu-icon {
          font-size: 18px;
          color: rgba(255, 255, 255, 0.8);
-         transition: all 0.3s ease;
+         transition: all 0.1s ease;
       }
    }
 
    .sub-menu-item {
-      transition: all 0.3s ease;
+      transition: all 0.1s ease;
       height: 40px;
       line-height: 40px;
 
@@ -301,7 +301,7 @@ onMounted(() => {
          border-color: rgba(102, 126, 234, 0.5);
          color: #ffffff !important;
          transform: translateX(4px);
-         box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+         box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
 
          .menu-icon {
             color: #ffffff;
@@ -312,7 +312,7 @@ onMounted(() => {
       .menu-icon {
          font-size: 16px;
          color: rgba(255, 255, 255, 0.7);
-         transition: all 0.3s ease;
+         transition: all 0.1s ease;
       }
    }
 }
@@ -322,7 +322,7 @@ onMounted(() => {
    border-top: 1px solid rgba(255, 255, 255, 0.1);
    background: rgba(255, 255, 255, 0.03);
    backdrop-filter: blur(10px);
-   transition: all 0.3s ease;
+   transition: all 0.1s ease;
 }
 
 .version-info {
@@ -344,7 +344,7 @@ onMounted(() => {
       height: 100vh;
       z-index: 1000;
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      transition: transform 0.1s ease;
 
       &.menu-open {
          transform: translateX(0);
@@ -366,7 +366,7 @@ onMounted(() => {
 
 // 菜单展开/收起动画
 .el-menu-vertical {
-   transition: width 0.3s ease;
+   transition: width 0.1s ease;
 }
 
 // 自定义滚动条
@@ -380,7 +380,7 @@ onMounted(() => {
 }
 
 .el-menu-vertical::-webkit-scrollbar-thumb {
-   background: rgba(255, 255, 255, 0.3);
+   background: rgba(255, 255, 255, 0.1);
    border-radius: 2px;
 
    &:hover {

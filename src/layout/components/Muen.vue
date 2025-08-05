@@ -3,12 +3,9 @@
       <!-- 系统标题区域 -->
       <div class="system-header" :class="{ collapsed: system.isCollapse }">
          <div class="system-logo">
-            <img
-               src="https://tse1-mm.cn.bing.net/th/id/OIP-C.GzgTJPcrYPLk3fb4McYEMAHaFY?w=252&h=184&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
-               alt="Logo"
-               class="logo-img" />
+            <img :src="logo" alt="Logo" class="logo-img" />
             <div class="system-info" v-show="!system.isCollapse">
-               <h3 class="system-title">LOGIN 管理系统</h3>
+               <h3 class="system-title">{{ systemTitle }}</h3>
                <p class="system-subtitle">Professional Admin</p>
             </div>
          </div>
@@ -74,9 +71,12 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import router from '@/router';
 import { systemStore } from '@/store/modules/system';
-
+import logo from '@/assets/logo.webp';
 const route = useRoute();
 const system = systemStore();
+
+// 系统标题
+const systemTitle = ref(import.meta.env.VITE_APP_TITLE || 'LOGIN 管理系统');
 
 // 定义菜单项类型
 interface MenuItem {
@@ -123,7 +123,6 @@ onMounted(() => {
    border-right: 1px solid rgba(255, 255, 255, 0.1);
    position: relative;
    overflow: hidden;
-   transition: all 0.1s ease;
 
    &::before {
       content: '';
@@ -142,7 +141,6 @@ onMounted(() => {
    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
    background: rgba(255, 255, 255, 0.05);
    backdrop-filter: blur(10px);
-   transition: all 0.1s ease;
    display: flex;
    align-items: center;
 
@@ -156,7 +154,7 @@ onMounted(() => {
    display: flex;
    align-items: center;
    gap: 12px;
-   transition: all 0.1s ease;
+   transition: gap 0.2s ease;
 
    .collapsed & {
       justify-content: center;
@@ -170,7 +168,9 @@ onMounted(() => {
    border-radius: 50%;
    border: 2px solid rgba(255, 255, 255, 0.1);
    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-   transition: all 0.1s ease;
+   transition:
+      width 0.2s ease,
+      height 0.2s ease;
 
    .collapsed & {
       width: 35px;
@@ -181,7 +181,6 @@ onMounted(() => {
 .system-info {
    flex: 1;
    min-width: 0;
-   transition: all 0.1s ease;
    overflow: hidden;
 }
 
@@ -195,7 +194,6 @@ onMounted(() => {
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
    background-clip: text;
-   transition: all 0.1s ease;
 }
 
 .system-subtitle {
@@ -203,7 +201,6 @@ onMounted(() => {
    color: rgba(255, 255, 255, 0.7);
    margin: 0;
    font-weight: 300;
-   transition: all 0.1s ease;
 }
 
 .el-menu-vertical {
@@ -211,7 +208,7 @@ onMounted(() => {
    border: none;
    background: transparent;
    padding: 10px 0;
-   transition: all 0.1s ease;
+   transition: width 0.2s ease;
 
    &.el-menu--collapse {
       width: 64px;
@@ -223,43 +220,30 @@ onMounted(() => {
 }
 
 .menu-item {
-   transition: all 0.1s ease;
    height: 48px;
    line-height: 48px;
 
    &:hover {
       background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(102, 126, 234, 0.1);
-      transform: translateX(4px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
    }
 
    &.is-active {
       background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-      border-color: rgba(102, 126, 234, 0.6);
-      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-
-      transform: translateX(6px);
 
       .menu-icon {
          color: #ffffff !important;
-         transform: scale(1.1);
       }
    }
 
    .menu-icon {
       font-size: 18px;
       color: rgba(255, 255, 255, 0.8);
-      transition: all 0.1s ease;
    }
 }
 
 .sub-menu {
-   transition: all 0.1s ease;
-
    &:hover {
       background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(102, 126, 234, 0.1);
    }
 
    .el-sub-menu__title {
@@ -267,7 +251,6 @@ onMounted(() => {
       line-height: 48px;
       border-radius: 8px;
       color: rgba(255, 255, 255, 0.8) !important;
-      transition: all 0.1s ease;
 
       &:hover {
          background: rgba(255, 255, 255, 0.1);
@@ -281,38 +264,29 @@ onMounted(() => {
       .menu-icon {
          font-size: 18px;
          color: rgba(255, 255, 255, 0.8);
-         transition: all 0.1s ease;
       }
    }
 
    .sub-menu-item {
-      transition: all 0.1s ease;
       height: 40px;
       line-height: 40px;
 
       &:hover {
          background: rgba(255, 255, 255, 0.08);
-         border-color: rgba(102, 126, 234, 0.2);
-         transform: translateX(2px);
       }
 
       &.is-active {
          background: linear-gradient(135deg, rgba(102, 126, 234, 0.25) 0%, rgba(118, 75, 162, 0.25) 100%);
-         border-color: rgba(102, 126, 234, 0.5);
          color: #ffffff !important;
-         transform: translateX(4px);
-         box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
 
          .menu-icon {
             color: #ffffff;
-            transform: scale(1.05);
          }
       }
 
       .menu-icon {
          font-size: 16px;
          color: rgba(255, 255, 255, 0.7);
-         transition: all 0.1s ease;
       }
    }
 }
@@ -322,7 +296,6 @@ onMounted(() => {
    border-top: 1px solid rgba(255, 255, 255, 0.1);
    background: rgba(255, 255, 255, 0.03);
    backdrop-filter: blur(10px);
-   transition: all 0.1s ease;
 }
 
 .version-info {
@@ -344,7 +317,7 @@ onMounted(() => {
       height: 100vh;
       z-index: 1000;
       transform: translateX(-100%);
-      transition: transform 0.1s ease;
+      transition: transform 0.2s ease;
 
       &.menu-open {
          transform: translateX(0);
@@ -366,7 +339,7 @@ onMounted(() => {
 
 // 菜单展开/收起动画
 .el-menu-vertical {
-   transition: width 0.1s ease;
+   transition: width 0.2s ease;
 }
 
 // 自定义滚动条

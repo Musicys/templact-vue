@@ -3,16 +3,22 @@
 ## 技术栈
 **Vue 3 + Ts + Vite**
 
+
+
+
+
+
 ```bash
 # 初始化
-pnpm create vite@latest
-pnpm add vue-router@4
-pnpm i vue-router-tab -S
-pnpm install pinia
+pnpm create vite@latest [项目名] -- --template vue-ts
+pnpm add vue-router@4 [https://router.vuejs.org/zh/index.html]
+pnpm i vue-router-tab -S [https://github.com/daylenjeez/vue3-tabor]
+pnpm install pinia [https://pinia.vuejs.org/]
 pnpm install sass sass-loader --save-dev
-pnpm install element-plus
+pnpm install element-plus [https://element-plus.org/zh-CN/]
 pnpm install -D unplugin-vue-components unplugin-auto-import
-PNPM install axios
+PNPM install axios [https://github.com/axios/axios]
+PNPM install echarts --save [https://echarts.apache.org/zh/index.html]
 ```
 
 
@@ -29,48 +35,24 @@ npm run dev
 
 # 打包项目
 npm run build
+
+
+# 本地部署项目
+npm run build
+http-server ./dist
+# 推荐使用 pnpm
 ```
 
-## 项目使用核心库
-```bash
-# axios 
-# vue-router
-# pinia
-# element-plus
-# vue-router-tab
-# echarts
-# sass
-# element-plus [https://element-plus.org/zh-CN/component/overview.html]
-# unplugin-auto-import 自动引入
-```
 
 
 
 
 ## 目录结构
-├── src
-│   ├── api
-│   ├── assets
-│   ├── components
-│   ├── config
-│   ├── icons
-│   ├── layout
-│   ├── router
-│   ├── store
-│   ├── styles
-│   ├── utils
-│   ├── views
-│   ├── App.vue
-│   ├── main.js
-├── .env.development
-├── .env.production
-├── .eslintrc.js
-├── .gitignore
-├── babel.config.js
-├── package.json
-├── README.md
 
 
+
+
+## 万能模板 配置完成
 
 
 

@@ -26,13 +26,10 @@
             <div class="login-content">
                <div class="logo-section">
                   <div class="logo-container">
-                     <img
-                        src="https://tse1-mm.cn.bing.net/th/id/OIP-C.GzgTJPcrYPLk3fb4McYEMAHaFY?w=252&h=184&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
-                        alt="后台管理系统 logo"
-                        class="logo-img" />
+                     <img :src="logo" alt="后台管理系统 logo" class="logo-img" />
                      <div class="logo-glow"></div>
                   </div>
-                  <h1 class="system-title">后台管理系统</h1>
+                  <h1 class="system-title">{{ systemTitle }}</h1>
                   <p class="system-subtitle">Professional Admin System</p>
                </div>
                <div class="welcome-text">
@@ -137,9 +134,12 @@ import { onMounted, onUnmounted, ref, reactive, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { useTabor } from 'vue3-tabor';
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
-
+import logo from '@/assets/logo.webp';
 const tabor = useTabor();
 const router = useRouter();
+
+// 系统标题
+const systemTitle = ref(import.meta.env.VITE_APP_TITLE || '后台管理系统');
 
 // Canvas 引用
 const particleCanvas = ref<HTMLCanvasElement>();
@@ -395,9 +395,7 @@ const handleLogin = async () => {
    }
 };
 
-onUnmounted(() => {
-   console.log('登录组件卸载');
-});
+onUnmounted(() => {});
 </script>
 
 <style lang="scss" scoped>

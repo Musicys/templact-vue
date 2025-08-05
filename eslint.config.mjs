@@ -18,7 +18,8 @@ export default defineConfig([
       '.husky',
       'vite.config.js',
       '.prettierrc.cjs',
-      'vite.config.ts'
+      'vite.config.ts',
+      "tsconfig.json"
     ]
   },
   { files: ['**/*.{js,mjs,cjs,ts,mts,cts,vue}'], plugins: { js }, extends: ['js/recommended'] },

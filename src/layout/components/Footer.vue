@@ -53,11 +53,8 @@
                <Menu />
             </el-icon>
             <div class="logo-content">
-               <img
-                  src="https://tse1-mm.cn.bing.net/th/id/OIP-C.GzgTJPcrYPLk3fb4McYEMAHaFY?w=252&h=184&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
-                  alt="Logo"
-                  class="logo-img" />
-               <span class="system-name">LOGIN 管理系统</span>
+               <img :src="logo" alt="Logo" class="logo-img" />
+               <span class="system-name">{{ systemTitle }}</span>
             </div>
          </div>
       </div>
@@ -129,10 +126,13 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { systemStore } from '@/store/modules/system';
-
+import logo from '@/assets/logo.webp';
 const router = useRouter();
 const route = useRoute();
 const system = systemStore();
+
+// 系统标题
+const systemTitle = ref(import.meta.env.VITE_APP_TITLE || 'LOGIN 管理系统');
 
 // 全屏状态
 const isFullscreen = ref(false);

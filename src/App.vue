@@ -4,7 +4,10 @@ import { RouterView } from 'vue-router';
 
 import { onMounted } from 'vue';
 
-onMounted(() => {});
+onMounted(() => {
+   //记得注销
+   console.log('App.vue:入口文件,初始化万能模板，当前env环境为：', import.meta.env);
+});
 </script>
 
 <template>

@@ -1,4 +1,23 @@
-*{
-  padding: 0;
-  margin: 0;
+* {
+   padding: 0;
+   margin: 0;
+}
+
+* {
+   /* 设置滚动条整体样式 */
+   ::-webkit-scrollbar {
+      width: 12px; /* 垂直滚动条的宽度 */
+      height: 12px; /* 水平滚动条的高度 */
+   }
+
+   /* 设置滚动条滑块部分的样式 */
+   ::-webkit-scrollbar-thumb {
+      background-color: #c0c0c0;
+      border-radius: 6px;
+   }
+
+   /* 设置滚动条轨道的样式 */
+   ::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+   }
 }

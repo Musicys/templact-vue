@@ -1,35 +1,33 @@
 <template>
-   <div class="home">
-      <div>
-         {{ store.userinfo }}
-      </div>
-      home
-      <input type="text" />
-      <input type="text" />
-   </div>
+   <el-button :plain="true" @click="open5">Primary</el-button>
+   <el-button :plain="true" @click="open2">Success</el-button>
+   <el-button :plain="true" @click="open3">Warning</el-button>
+   <el-button :plain="true" @click="open1">Info</el-button>
+   <el-button :plain="true" @click="open4">Error</el-button>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import { useStore } from '@/store/modules/user';
+<script lang="ts" setup>
+import { ElMessage } from 'element-plus';
 
-const store = useStore();
-
-defineOptions({
-   name: 'HomeCharts'
-});
-// 注册组件以便动态使用
-
-const currentComponent = ref('Hellowrod1');
-
-const toggleComponent = e => {
-   currentComponent.value = `Hellowrod${e}`;
+const open1 = () => {
+   ElMessage('This is a info message.');
+};
+const open2 = () => {
+   ElMessage({
+      message: 'Congrats, this is a success message.',
+      type: 'success'
+   });
+};
+const open3 = () => {
+   ElMessage({
+      message: 'Warning, this is a warning message.',
+      type: 'warning'
+   });
+};
+const open4 = () => {
+   ElMessage.error('Oops, this is a error message.');
+};
+const open5 = () => {
+   ElMessage.primary('This is a primary message.');
 };
 </script>
-
-<style lang="scss" scoped>
-.home {
-   height: 200vh;
-   width: 100%;
-}
-</style>

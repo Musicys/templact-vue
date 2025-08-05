@@ -5,6 +5,7 @@ import router from './router/index';
 import { createPinia } from 'pinia';
 
 import './style.css';
+import 'element-plus/dist/index.css';
 
 import Tabor from 'vue3-tabor';
 // 必须引入样式文件

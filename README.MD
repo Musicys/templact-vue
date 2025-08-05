@@ -63,13 +63,13 @@ http-server ./dist
 
 **登录页**
 
-![./](.\y_UIVIEW\LOGIN.png)
+![./](\y_UIVIEW\LOGIN.png)
 
 
 
 **后台页**
 
-![](.\y_UIVIEW\HOME.png)
+![](\y_UIVIEW\HOME.png)
 
 ## 帮助文档
 

@@ -63,13 +63,14 @@ http-server ./dist
 
 **登录页**
 
-![./](\y_UIVIEW\LOGIN.png)
+<img src="./y_UIVIEW/LOGIN.png"/>
 
 
 
 **后台页**
 
-![](\y_UIVIEW\HOME.png)
+<img src="./y_UIVIEW/HOME.png"/>
+
 
 ## 帮助文档
 
@@ -89,3 +90,20 @@ http-server ./dist
 
 
 
+### 提交类型
+
+| 提交类型   | 标题               | 描述                                                         |
+| ---------- | ------------------ | ------------------------------------------------------------ |
+| `feat`     | 特征               | 新功能、新特性                                               |
+| `fix`      | Bug 修复           | bug 修复                                                     |
+| `docs`     | 文档               | 仅文档更改                                                   |
+| `style`    | 风格               | 不影响代码含义的更改（空格、格式、缺少分号等）               |
+| `refactor` | 代码重构           | 重构，在不影响代码内部行为，功能下的代码修改                 |
+| `perf`     | 性能改进           | 更改代码，以提高性能                                         |
+| `test`     | 测试               | 添加缺失的测试或纠正现有的测试                               |
+| `build`    | 构建               | 影响构建系统或外部依赖项的更改（示例范围：gulp、broccoli、npm） |
+| `ci`       | 持续集成           | 对我们的 CI 配置文件和脚本的更改（示例范围：Travis、Circle、BrowserStack、SauceLabs） |
+| `chore`    | 其他文件修改       | 不修改 src 或测试文件的其他更改                              |
+| `revert`   | 还原               | 恢复之前的提交                                               |
+| `release`  | 发布新版本         | -                                                            |
+| `workflow` | 工作流相关文件修改 | -                                                            |

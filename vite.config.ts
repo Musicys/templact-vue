@@ -16,6 +16,10 @@ export default defineConfig({
          resolvers: [ElementPlusResolver()]
       })
    ],
+   esbuild: {
+      // 跳过 TypeScript 类型检查
+      logOverride: { 'this-is-undefined-in-esm': 'silent' }
+   },
    resolve: {
       /*  */
       // 使用对象语法简化别名配置
@@ -45,13 +49,7 @@ export default defineConfig({
    },
    // 生产环境配置
    build: {
-      minify: 'terser',
-      terserOptions: {
-         compress: {
-            drop_console: true,
-            drop_debugger: true
-         }
-      },
+      minify: 'esbuild',
       // 配置打包大小限制警告
       chunkSizeWarningLimit: 1500
    }

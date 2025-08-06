@@ -1,26 +1,13 @@
 <template>
-   <div>
-      {{ store.userinfo }}
+   <div class="tinymce-box">
+      <RichEditor></RichEditor >
    </div>
-   home
-   <input type="text" />
-   <input type="text" />
 </template>
-
-<script setup>
-import { ref } from 'vue';
-import { useStore } from '@/store/modules/user';
-
-const store = useStore();
-
-defineOptions({
-   name: 'HomeCharts'
-});
-// 注册组件以便动态使用
-
-const currentComponent = ref('Hellowrod1');
-
-const toggleComponent = e => {
-   currentComponent.value = `Hellowrod${e}`;
-};
+<style scoped>
+.tinymce-box {
+   width: 100%;
+}
+</style>
+<script lang="ts" setup>
+import RichEditor from '@/components/RichEditor.vue';
 </script>

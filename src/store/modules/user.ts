@@ -1,7 +1,14 @@
 import { defineStore } from 'pinia'; /*  */
 import { ref } from 'vue';
+interface UserInfo {
+   login: string;
+   name?: string;
+   age?: number;
+   sex?: string;
+}
+
 export const useStore = defineStore('x', () => {
-   const userinfo = ref({
+   const userinfo = ref<UserInfo>({
       login: 'NO_LOGIN'
    });
 

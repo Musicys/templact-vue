@@ -6,6 +6,12 @@ import { computed } from 'vue';
 // 2. 配置路由
 const routes = [
    {
+      path: '/:pathMatch(.*)',
+      redirect: '/404'
+      //匹配所有路径
+   },
+
+   {
       path: '/',
       redirect: '/login'
    },
@@ -39,11 +45,12 @@ const routes = [
             name: 'home',
             component: () => import('@/view/layout-router/home-charts/index.vue'),
             meta: {
-               icon: 'Goods', //图标
+               icon: 'Monitor', //图标
                tabConfig: {
                   hideClose: true, // 隐藏关闭按钮
                   keepAlive: true, // 启用缓存
-                  name: '首页'
+                  name: '数据概览',
+                  key: 'path'
                }
             }
          },
@@ -53,12 +60,13 @@ const routes = [
             name: 'user',
             component: () => import('@/components/router.vue'),
             meta: {
-               icon: 'Flag',
+               icon: 'User',
                setup: true, //是否是菜单
                tabConfig: {
                   hideClose: false, // 隐藏关闭按钮
                   keepAlive: true, // 启用缓存
-                  name: '用户管理中心'
+                  name: '用户管理中心',
+                  key: 'path'
                }
             },
             children: [
@@ -71,11 +79,12 @@ const routes = [
                   name: 'comment',
                   component: () => import('@/view/layout-router/system-user/comment.vue'),
                   meta: {
-                     icon: 'Flag',
+                     icon: 'ChatDotRound',
                      tabConfig: {
                         hideClose: false, // 隐藏关闭按钮
                         keepAlive: true, // 启用缓存
-                        name: '用户评论'
+                        name: '用户评论',
+                        key: 'path'
                      }
                   }
                },
@@ -84,11 +93,12 @@ const routes = [
                   name: 'arg',
                   component: () => import('@/view/layout-router/system-user/arg.vue'),
                   meta: {
-                     icon: 'Ship',
+                     icon: 'Collection',
                      tabConfig: {
                         hideClose: false, // 隐藏关闭按钮
                         keepAlive: true, // 启用缓存
-                        name: '用户标签'
+                        name: '用户标签',
+                        key: 'path'
                      }
                   }
                }
@@ -99,12 +109,13 @@ const routes = [
             name: 'usertwo',
             component: () => import('@/components/router.vue'),
             meta: {
-               icon: 'Flag',
+               icon: 'UserFilled',
                setup: true, //是否是菜单
                tabConfig: {
                   hideClose: false, // 隐藏关闭按钮
                   keepAlive: true, // 启用缓存
-                  name: '用户管理中心2'
+                  name: '用户管理中心2',
+                  key: 'path'
                }
             },
             children: [
@@ -117,11 +128,12 @@ const routes = [
                   name: 'commenttwo',
                   component: () => import('@/view/layout-router/system-usertwo/comment.vue'),
                   meta: {
-                     icon: 'Flag',
+                     icon: 'ChatLineRound',
                      tabConfig: {
                         hideClose: false, // 隐藏关闭按钮
                         keepAlive: true, // 启用缓存
-                        name: '用户评论02'
+                        name: '用户评论02',
+                        key: 'path'
                      }
                   }
                },
@@ -130,11 +142,12 @@ const routes = [
                   name: 'argtwo',
                   component: () => import('@/view/layout-router/system-usertwo/arg.vue'),
                   meta: {
-                     icon: 'Ship',
+                     icon: 'CollectionTag',
                      tabConfig: {
                         hideClose: false, // 隐藏关闭按钮
                         keepAlive: true, // 启用缓存
-                        name: '用户标签02'
+                        name: '用户标签02',
+                        key: 'path'
                      }
                   }
                }

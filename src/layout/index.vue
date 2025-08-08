@@ -19,6 +19,7 @@ const tabor = useTabor();
 
 onMounted(() => {
    tabor.closeOthers();
+   console.log('初始化完成');
 });
 </script>
 

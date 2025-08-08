@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { createRouter, createWebHistory } from 'vue-router';
 import loginFrom from '@/view/login/login-from.vue';
-import { computed } from 'vue';
 
+import Layout from '@/layout/index.vue';
 // 2. 配置路由
 const routes = [
    {
@@ -34,7 +34,7 @@ const routes = [
    {
       path: '/pages',
       name: 'pages',
-      component: () => import('@/layout/index.vue'),
+      component: Layout,
       children: [
          {
             path: '',

@@ -1,6 +1,6 @@
 <template>
    <div class="tinymce-box">
-      <RichEditor></RichEditor >
+      <v-md-editor v-model="text" height="400px"></v-md-editor>
    </div>
 </template>
 <style scoped>
@@ -9,5 +9,6 @@
 }
 </style>
 <script lang="ts" setup>
-import RichEditor from '@/components/RichEditor.vue';
+import { ref } from 'vue';
+const text = ref('');
 </script>

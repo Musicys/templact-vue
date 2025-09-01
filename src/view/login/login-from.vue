@@ -69,7 +69,7 @@
                   label-position="top">
                   <el-form-item label="用户名" prop="username">
                      <el-input
-                        v-model="loginForm.username"
+                        v-model="form.userAccount"
                         placeholder="请输入用户名"
                         prefix-icon="User"
                         size="large"
@@ -79,7 +79,7 @@
 
                   <el-form-item label="密码" prop="password">
                      <el-input
-                        v-model="loginForm.password"
+                        v-model="form.userPassword"
                         type="password"
                         placeholder="请输入密码"
                         prefix-icon="Lock"
@@ -132,10 +132,10 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, reactive, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
-import { useTabor } from 'vue3-tabor';
+
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
 import logo from '@/assets/logo.webp';
-const tabor = useTabor();
+
 const router = useRouter();
 
 // 系统标题
@@ -365,33 +365,52 @@ onMounted(async () => {
    generateCaptcha();
 });
 
+import axios from 'axios';
+
+const form = ref({
+   userAccount: '', //账号
+   userPassword: '' //密码
+});
 // 登录处理函数
+// const handleLogin =  () => {
+
+//    axios.post('http://101.42.172.99:8101/api/user/login', form.value)
+//       .then(res => {
+//       if (res.data.code === 0) {
+//          console.log(res.data.data);
+
+//          ElMessage({
+//             message: '登录成功',
+//             type: 'success',
+//             plain: true
+//          });
+//          router.push('/pages/home');
+//       } else {
+//          ElMessage({
+//             message: res.data.message,
+//             type: 'error',
+//             plain: true
+//          });
+//       }
+//    });
+// };
+
 const handleLogin = async () => {
-   if (!loginFormRef.value) return;
+   const res = await axios.post('http://101.42.172.99:8101/api/user/login', form.value);
 
-   try {
-      await loginFormRef.value.validate();
-      loading.value = true;
-
-      // 模拟登录请求
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      // 记住用户名
-      if (rememberMe.value) {
-         localStorage.setItem('rememberedUsername', loginForm.username);
-      } else {
-         localStorage.removeItem('rememberedUsername');
-      }
-
-      ElMessage.success('登录成功！');
-
-      // 跳转到首页
-      tabor.open('/pages/home');
-   } catch (error) {
-      console.error('登录失败:', error);
-      ElMessage.error('登录失败，请检查输入信息');
-   } finally {
-      loading.value = false;
+   if (res.data.code === 0) {
+      ElMessage({
+         message: '登录成功',
+         type: 'success',
+         plain: true
+      });
+      router.push('/pages/home');
+   } else {
+      ElMessage({
+         message: res.data.message,
+         type: 'error',
+         plain: true
+      });
    }
 };
 

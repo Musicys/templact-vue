@@ -20,11 +20,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, getCurrentInstance } from 'vue';
+import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import errImage from '@/assets/401_images/401.gif';
 
-const instance = getCurrentInstance();
 const router = useRouter();
 const route = useRoute();
 

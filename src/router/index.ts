@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { createRouter, createWebHistory } from 'vue-router';
 import loginFrom from '@/view/login/login-from.vue';
 
@@ -24,12 +23,12 @@ const routes = [
    {
       path: '/404',
       name: '404',
-      component: () => import('@/view/notfound/404.vue')
+      component: () => import('@/view/notfound/PageNoView.vue')
    },
    {
       path: '/401',
       name: '401',
-      component: () => import('@/view/notfound/401.vue')
+      component: () => import('@/view/notfound/PageNoRole.vue')
    },
    {
       path: '/pages',

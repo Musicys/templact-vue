@@ -4,6 +4,7 @@ import { resolve } from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+
 // https://vitejs.dev/config/
 export default defineConfig({
    plugins: [
@@ -12,6 +13,7 @@ export default defineConfig({
          resolvers: [ElementPlusResolver()],
          imports: ['vue', 'vue-router', 'pinia']
       }),
+
       Components({
          resolvers: [ElementPlusResolver()]
       })
@@ -35,9 +37,6 @@ export default defineConfig({
       }
    },
    server: {
-      host: 'localhost',
-      port: 9999,
-      open: true,
       // 添加代理配置示例
       proxy: {
          '/api': {

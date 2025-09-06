@@ -91,9 +91,9 @@
          <!-- 用户下拉菜单 -->
          <el-dropdown @command="handleCommand" trigger="click">
             <div class="user-dropdown">
-               <el-avatar :size="40" :src="userInfo.avatar" class="user-avatar" />
+               <el-avatar :size="40" :src="userInfo.avatarurl" class="user-avatar" />
                <div class="user-details" v-show="!isMobile">
-                  <span class="user-name">{{ userInfo.name }}</span>
+                  <span class="user-name">{{ userInfo.username }}</span>
                   <span class="user-email">{{ userInfo.email }}</span>
                </div>
                <el-icon class="dropdown-icon" v-show="!isMobile">
@@ -122,15 +122,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, Ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { systemStore } from '@/store/modules/system';
 import logo from '@/assets/logo.webp';
+import { AdminOff } from '@/api/user';
+import { Admin } from '@/api/user/model/type';
+import { adminStore } from '@/store/modules/admin';
 const router = useRouter();
 const route = useRoute();
 const system = systemStore();
-
+const store = adminStore();
 // 系统标题
 const systemTitle = ref(import.meta.env.VITE_APP_TITLE || 'LOGIN 管理系统');
 
@@ -144,12 +147,7 @@ const unreadCount = ref(0);
 const isMobile = ref(false);
 
 // 用户信息
-const userInfo = ref({
-   name: '管理员',
-   email: 'admin@example.com',
-   avatar:
-      'https://tse1-mm.cn.bing.net/th/id/OIP-C.GzgTJPcrYPLk3fb4McYEMAHaFY?w=252&h=184&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
-});
+const userInfo: Ref<Admin> = ref({});
 
 // 定义菜单项类型
 interface MenuItem {
@@ -183,8 +181,6 @@ const checkMobile = () => {
 // 显示通知
 const showNotifications = () => {
    ElMessage.info('通知功能开发中...');
-   // 这里可以添加显示通知面板的逻辑
-   // 比如打开一个抽屉或弹窗显示通知列表
 };
 
 // 切换全屏
@@ -214,11 +210,20 @@ const handleCommand = async (command: string) => {
                cancelButtonText: '取消',
                type: 'warning'
             });
+
+            try {
+               let res = await AdminOff();
+               if (res.code == 0) {
+                  localStorage.removeItem('userInfo');
+                  ElMessage.success(res.data);
+                  // 跳转到登录页
+                  router.push('/login');
+               }
+            } catch {
+               localStorage.removeItem('userInfo');
+               router.push('/login');
+            }
             // 清除用户信息
-            localStorage.removeItem('userInfo');
-            ElMessage.success('已安全退出登录');
-            // 跳转到登录页
-            router.push('/login');
          } catch {
             // 用户取消
          }
@@ -240,6 +245,7 @@ const initMenuData = () => {
 
 // 监听全屏状态变化
 onMounted(() => {
+   userInfo.value = { ...store.userinfo };
    checkMobile();
    initMenuData();
 

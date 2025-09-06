@@ -1,8 +1,22 @@
+import { getAdminInfo } from '@/api/user';
 import router from '@/router/index';
 
 // 拦截器
-router.beforeEach((to, from, next) => {
-   next();
+router.beforeEach(async (to, from, next) => {
+   if (to.path == '/login') {
+      return next();
+   }
+
+   try {
+      const res = await getAdminInfo();
+      if (res.code == 0) {
+         return next();
+      } else {
+         return next({ path: '/login' });
+      }
+   } catch {
+      return next({ path: '/login' });
+   }
 });
 
 // 后置设置标题

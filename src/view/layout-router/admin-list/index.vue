@@ -1,6 +1,4 @@
-<template>
-   <div>HOME</div>
-</template>
+<template>adminlist</template>
 
 <script setup lang="ts"></script>
 

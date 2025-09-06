@@ -48,105 +48,35 @@ const routes = [
                tabConfig: {
                   hideClose: true, // 隐藏关闭按钮
                   keepAlive: true, // 启用缓存
-                  name: '数据概览',
-                  key: 'path'
+                  name: '数据概览'
                }
             }
          },
-
          {
-            path: 'user',
-            name: 'user',
+            path: 'admin',
+            name: 'admin',
             component: () => import('@/components/router.vue'),
             meta: {
-               icon: 'User',
+               icon: 'Management',
                setup: true, //是否是菜单
                tabConfig: {
                   hideClose: false, // 隐藏关闭按钮
                   keepAlive: true, // 启用缓存
-                  name: '用户管理中心',
-                  key: 'path'
+                  name: '管理员管理中心',
+                  access: 'Admin'
                }
             },
             children: [
                {
-                  path: '',
-                  redirect: 'comment'
-               },
-               {
-                  path: 'comment',
-                  name: 'comment',
-                  component: () => import('@/view/layout-router/system-user/comment.vue'),
-                  meta: {
-                     icon: 'ChatDotRound',
-                     tabConfig: {
-                        hideClose: false, // 隐藏关闭按钮
-                        keepAlive: true, // 启用缓存
-                        name: '用户评论',
-                        key: 'path'
-                     }
-                  }
-               },
-               {
-                  path: 'arg',
-                  name: 'arg',
-                  component: () => import('@/view/layout-router/system-user/arg.vue'),
+                  path: 'list',
+                  name: 'list',
+                  component: () => import('@/view/layout-router/admin-list/index.vue'),
                   meta: {
                      icon: 'Collection',
                      tabConfig: {
                         hideClose: false, // 隐藏关闭按钮
                         keepAlive: true, // 启用缓存
-                        name: '用户标签',
-                        key: 'path'
-                     }
-                  }
-               }
-            ]
-         },
-         {
-            path: 'usertwo',
-            name: 'usertwo',
-            component: () => import('@/components/router.vue'),
-            meta: {
-               icon: 'UserFilled',
-               setup: true, //是否是菜单
-               tabConfig: {
-                  hideClose: false, // 隐藏关闭按钮
-                  keepAlive: true, // 启用缓存
-                  name: '用户管理中心2',
-                  key: 'path'
-               }
-            },
-            children: [
-               {
-                  path: '',
-                  redirect: 'commenttwo'
-               },
-               {
-                  path: 'commenttwo',
-                  name: 'commenttwo',
-                  component: () => import('@/view/layout-router/system-usertwo/comment.vue'),
-                  meta: {
-                     icon: 'ChatLineRound',
-                     tabConfig: {
-                        hideClose: false, // 隐藏关闭按钮
-                        keepAlive: true, // 启用缓存
-                        name: '用户评论02',
-                        key: 'path'
-                     }
-                  }
-               },
-               {
-                  path: 'argtwo',
-                  name: 'argtwo',
-                  component: () => import('@/view/layout-router/system-usertwo/arg.vue'),
-                  meta: {
-                     icon: 'CollectionTag',
-                     tabConfig: {
-                        hideClose: false, // 隐藏关闭按钮
-                        keepAlive: true, // 启用缓存
-                        name: '用户标签02',
-                        key: 'path'
+                        name: '管理员列表'
                      }
                   }
                }

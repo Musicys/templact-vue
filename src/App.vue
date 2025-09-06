@@ -5,7 +5,7 @@ import { onMounted } from 'vue';
 
 onMounted(() => {
    //记得注销
-   console.log('App.vue:入口文件,初始化万能模板，当前env环境为：', import.meta.env);
+   console.log('App.vue:入口文件,初始化万能模板，当前env环境为：', import.meta.env.VITE_APP_BASE_API);
 });
 </script>
 

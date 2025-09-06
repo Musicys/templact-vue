@@ -16,9 +16,6 @@
          <div class="float-square square-2"></div>
       </div>
 
-      <!-- Canvas 粒子动画背景 -->
-      <canvas ref="particleCanvas" class="particle-canvas"></canvas>
-
       <!-- 登录卡片 -->
       <div class="login-card">
          <!-- 左侧登录区域 -->
@@ -89,26 +86,6 @@
                      </el-input>
                   </el-form-item>
 
-                  <!-- 验证码区域 -->
-                  <el-form-item label="验证码" prop="captcha">
-                     <div class="captcha-container">
-                        <el-input
-                           v-model="loginForm.captcha"
-                           placeholder="请输入验证码"
-                           prefix-icon="Key"
-                           size="large"
-                           class="glass-input"
-                           style="flex: 1; margin-right: 15px">
-                        </el-input>
-                        <div class="captcha-image" @click="refreshCaptcha">
-                           <canvas ref="captchaCanvas" width="120" height="40"></canvas>
-                           <div class="captcha-overlay">
-                              <span>点击刷新</span>
-                           </div>
-                        </div>
-                     </div>
-                  </el-form-item>
-
                   <el-form-item>
                      <div class="remember-section">
                         <el-checkbox v-model="rememberMe" class="glass-checkbox">记住用户名</el-checkbox>
@@ -130,42 +107,40 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, reactive, nextTick } from 'vue';
-import { useRouter } from 'vue-router';
-
-import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
+import { onMounted, onUnmounted, ref, reactive } from 'vue';
+import { AdminLogin } from '@/api/user';
 import logo from '@/assets/logo.webp';
-
+import { useRouter } from 'vue-router';
 const router = useRouter();
-
-// 系统标题
-const systemTitle = ref(import.meta.env.VITE_APP_TITLE || '后台管理系统');
-
-// Canvas 引用
-const particleCanvas = ref<HTMLCanvasElement>();
-const captchaCanvas = ref<HTMLCanvasElement>();
-
-// 表单引用
-const loginFormRef = ref<FormInstance>();
-
+import { adminStore } from '@/store/modules/admin';
+import { ElMessage } from 'element-plus';
 // 加载状态
 const loading = ref(false);
-
+const store = adminStore();
 // 记住用户名
 const rememberMe = ref(false);
 
-// 验证码
-const captchaText = ref('');
-
-// 定义登录表单数据
-const loginForm = reactive({
-   username: '',
-   password: '',
-   captcha: ''
+const form = reactive({
+   userAccount: 'liwang',
+   userPassword: '12345678'
 });
 
+const handleLogin = async () => {
+   const res = await AdminLogin(form);
+
+   if (res.code == 0) {
+      router.push('/pages/home');
+      console.log('管理员暑假', store.userinfo);
+
+      ElMessage.success('欢迎您!!' + res.data.username || '管理员');
+      store.setUserInfo(res.data);
+
+      // 保存用户信息到本地存储
+   }
+};
+
 // 表单验证规则
-const loginRules: FormRules = {
+const loginRules = {
    username: [
       { required: true, message: '请输入用户名', trigger: 'blur' },
       { min: 3, max: 20, message: '用户名长度在 3 到 20 个字符', trigger: 'blur' }
@@ -173,246 +148,11 @@ const loginRules: FormRules = {
    password: [
       { required: true, message: '请输入密码', trigger: 'blur' },
       { min: 6, max: 20, message: '密码长度在 6 到 20 个字符', trigger: 'blur' }
-   ],
-   captcha: [
-      { required: true, message: '请输入验证码', trigger: 'blur' },
-      {
-         validator: (rule, value, callback) => {
-            if (value.toLowerCase() !== captchaText.value.toLowerCase()) {
-               callback(new Error('验证码错误'));
-            } else {
-               callback();
-            }
-         },
-         trigger: 'blur'
-      }
    ]
 };
 
-// 粒子动画类
-class ParticleAnimation {
-   private canvas: HTMLCanvasElement;
-   private ctx: CanvasRenderingContext2D;
-   private particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      color: string;
-      alpha: number;
-   }> = [];
-   private animationId: number = 0;
-
-   constructor(canvas: HTMLCanvasElement) {
-      this.canvas = canvas;
-      this.ctx = canvas.getContext('2d')!;
-      this.init();
-   }
-
-   private init() {
-      this.resize();
-      this.createParticles();
-      this.animate();
-      window.addEventListener('resize', () => this.resize());
-   }
-
-   private resize() {
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerHeight;
-   }
-
-   private createParticles() {
-      this.particles = [];
-      const particleCount = 80;
-
-      for (let i = 0; i < particleCount; i++) {
-         this.particles.push({
-            x: Math.random() * this.canvas.width,
-            y: Math.random() * this.canvas.height,
-            vx: (Math.random() - 0.5) * 0.3,
-            vy: (Math.random() - 0.5) * 0.3,
-            size: Math.random() * 2 + 0.5,
-            color: `hsl(${Math.random() * 60 + 200}, 80%, 70%)`,
-            alpha: Math.random() * 0.5 + 0.3
-         });
-      }
-   }
-
-   private animate() {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-      // 绘制粒子
-      this.particles.forEach(particle => {
-         this.ctx.beginPath();
-         this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-         this.ctx.fillStyle = `rgba(100, 150, 255, ${particle.alpha})`;
-         this.ctx.fill();
-
-         // 更新位置
-         particle.x += particle.vx;
-         particle.y += particle.vy;
-
-         // 边界检测
-         if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
-         if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
-      });
-
-      // 绘制连接线
-      this.particles.forEach((particle, i) => {
-         this.particles.slice(i + 1).forEach(otherParticle => {
-            const distance = Math.sqrt(
-               Math.pow(particle.x - otherParticle.x, 2) + Math.pow(particle.y - otherParticle.y, 2)
-            );
-
-            if (distance < 120) {
-               this.ctx.beginPath();
-               this.ctx.moveTo(particle.x, particle.y);
-               this.ctx.lineTo(otherParticle.x, otherParticle.y);
-               this.ctx.strokeStyle = `rgba(100, 150, 255, ${(1 - distance / 120) * 0.3})`;
-               this.ctx.lineWidth = 1;
-               this.ctx.stroke();
-            }
-         });
-      });
-
-      this.animationId = requestAnimationFrame(() => this.animate());
-   }
-
-   destroy() {
-      if (this.animationId) {
-         cancelAnimationFrame(this.animationId);
-      }
-   }
-}
-
-// 生成验证码
-const generateCaptcha = () => {
-   if (!captchaCanvas.value) return;
-
-   const canvas = captchaCanvas.value;
-   const ctx = canvas.getContext('2d')!;
-
-   // 清空画布
-   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-   // 生成随机验证码
-   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-   captchaText.value = '';
-   for (let i = 0; i < 4; i++) {
-      captchaText.value += chars.charAt(Math.floor(Math.random() * chars.length));
-   }
-
-   // 设置渐变背景
-   const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-   gradient.addColorStop(0, '#667eea');
-   gradient.addColorStop(1, '#764ba2');
-   ctx.fillStyle = gradient;
-   ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-   // 绘制干扰线
-   for (let i = 0; i < 4; i++) {
-      ctx.strokeStyle = `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.2})`;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
-      ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
-      ctx.stroke();
-   }
-
-   // 绘制验证码文字
-   ctx.font = 'bold 18px Arial';
-   ctx.textAlign = 'center';
-   ctx.textBaseline = 'middle';
-
-   for (let i = 0; i < captchaText.value.length; i++) {
-      ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.8})`;
-      ctx.save();
-      ctx.translate(30 + i * 20, 20);
-      ctx.rotate((Math.random() - 0.5) * 0.4);
-      ctx.fillText(captchaText.value[i], 0, 0);
-      ctx.restore();
-   }
-
-   // 添加噪点
-   for (let i = 0; i < 30; i++) {
-      ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.5})`;
-      ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1, 1);
-   }
-};
-
-// 刷新验证码
-const refreshCaptcha = () => {
-   generateCaptcha();
-   loginForm.captcha = '';
-};
-
 // 从本地存储获取记住的用户名
-onMounted(async () => {
-   const savedUsername = localStorage.getItem('rememberedUsername');
-   if (savedUsername) {
-      loginForm.username = savedUsername;
-      rememberMe.value = true;
-   }
-
-   // 初始化粒子动画
-   await nextTick();
-   if (particleCanvas.value) {
-      new ParticleAnimation(particleCanvas.value);
-   }
-
-   // 生成验证码
-   generateCaptcha();
-});
-
-import axios from 'axios';
-
-const form = ref({
-   userAccount: '', //账号
-   userPassword: '' //密码
-});
-// 登录处理函数
-// const handleLogin =  () => {
-
-//    axios.post('http://101.42.172.99:8101/api/user/login', form.value)
-//       .then(res => {
-//       if (res.data.code === 0) {
-//          console.log(res.data.data);
-
-//          ElMessage({
-//             message: '登录成功',
-//             type: 'success',
-//             plain: true
-//          });
-//          router.push('/pages/home');
-//       } else {
-//          ElMessage({
-//             message: res.data.message,
-//             type: 'error',
-//             plain: true
-//          });
-//       }
-//    });
-// };
-
-const handleLogin = async () => {
-   const res = await axios.post('http://101.42.172.99:8101/api/user/login', form.value);
-
-   if (res.data.code === 0) {
-      ElMessage({
-         message: '登录成功',
-         type: 'success',
-         plain: true
-      });
-      router.push('/pages/home');
-   } else {
-      ElMessage({
-         message: res.data.message,
-         type: 'error',
-         plain: true
-      });
-   }
-};
+onMounted(async () => {});
 
 onUnmounted(() => {});
 </script>

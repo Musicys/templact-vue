@@ -5,6 +5,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import eslint from 'vite-plugin-eslint';
+import tailwindcss from '@tailwindcss/vite';
 // https://vitejs.dev/config/
 export default defineConfig({
    plugins: [
@@ -17,7 +18,8 @@ export default defineConfig({
       Components({
          resolvers: [ElementPlusResolver()]
       }),
-      eslint() // 启用了 ESLint 插件
+      eslint(), // 启用了 ESLint 插件
+      tailwindcss()
    ],
    esbuild: {
       // 跳过 TypeScript 类型检查

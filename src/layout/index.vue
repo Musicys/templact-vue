@@ -1,5 +1,6 @@
 <template>
    <div class="common-layout">
+      <div class=""></div>
       <el-container>
          <el-aside><Muen></Muen></el-aside>
          <el-container>
@@ -44,6 +45,12 @@ onMounted(() => {
       background: #545c64;
       width: auto;
       transition: all 0.3;
+   }
+   .el-main {
+      background: #e4e6e9;
+      padding: 0 !important;
+      width: 100%;
+      height: 100%;
    }
 }
 </style>

@@ -9,7 +9,7 @@ import pluginPrettier from 'eslint-plugin-prettier';
 export default [
    // 1. 忽略文件
    {
-      ignores: ['dist/', 'node_modules/', '.env', '.env.*', '!.*.env', '*.cjs']
+      ignores: ['dist/', 'node_modules/', '.env', '.env.*', '!.*.env', '*.cjs', 'tailwind.config.js']
    },
 
    // 2. 基础 JavaScript 规则

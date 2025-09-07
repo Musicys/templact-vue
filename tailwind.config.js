@@ -1,7 +1,6 @@
 // tailwind.config.js
-import { type Config } from 'tailwindcss';
 
-const config: Config = {
+const config = {
    content: [
       './index.html',
       './src/**/*.{vue,js,ts,jsx,tsx,md}' // ✅ 包含 .vue 文件

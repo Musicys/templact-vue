@@ -37,7 +37,7 @@ app.use(VueMarkdownEditor);
 app.use(router);
 app.use(Tabor, {
    router, // 传入router实例
-   maxCache: 5 // 可选：最大缓存数量
+   maxCache: 10 // 可选：最大缓存数量
 });
 
 app.mount('#app');

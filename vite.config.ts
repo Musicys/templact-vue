@@ -5,7 +5,8 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import eslint from 'vite-plugin-eslint';
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
 // https://vitejs.dev/config/
 export default defineConfig({
    plugins: [
@@ -18,8 +19,7 @@ export default defineConfig({
       Components({
          resolvers: [ElementPlusResolver()]
       }),
-      eslint(), // 启用了 ESLint 插件
-      tailwindcss()
+      eslint() // 启用了 ESLint 插件
    ],
    esbuild: {
       // 跳过 TypeScript 类型检查
@@ -33,26 +33,21 @@ export default defineConfig({
       }
    },
    css: {
+      postcss: {
+         plugins: [tailwindcss, autoprefixer]
+      },
+
       preprocessorOptions: {
          scss: {
             // 自动导入全局样式文件
          }
       }
    },
-   server: {
-      // 添加代理配置示例
-      proxy: {
-         '/api': {
-            target: 'http://localhost:8080/',
-            changeOrigin: true,
-            rewrite: path => path.replace(/^\/api/, ''),
-            host: true, // 监听所有地址，包括本机 IP
-            port: 5173,
-            open: true // 可选：启动时自动打开浏览器
-         }
-      }
+   // 添加 CSS 优化配置
+   optimizeDeps: {
+      include: ['@kangc/v-md-editor']
    },
-   // 生产环境配置
+   // 修复 CSS 文件路径问题
    build: {
       minify: 'terser',
       terserOptions: {
@@ -67,32 +62,30 @@ export default defineConfig({
          output: {
             manualChunks(id) {
                if (id.includes('node_modules')) {
-                  if (id.includes('node_modules')) {
-                     // 分别对主要依赖项进行单独打包
-                     if (id.includes('react') || id.includes('react-dom')) return 'react';
-                     if (id.includes('redux')) return 'redux';
-                     if (id.includes('lodash')) return 'lodash';
-                     if (id.includes('moment')) return 'moment';
-                     // 其他大型依赖项也应如此处理
-                     return 'vendor'; // 将其他较小的依赖项打包在一起
+                  // 将 v-md-editor 单独打包
+                  if (id.includes('@kangc/v-md-editor')) {
+                     return 'v-md-editor';
                   }
-                  // 拆分关键大库
-                  if (id.includes('react') || id.includes('react-dom')) {
-                     return 'react';
-                  }
-                  if (id.includes('@ant-design')) {
-                     return 'ant-design';
-                  }
-                  if (id.includes('lodash') || id.includes('moment')) {
-                     return 'utils';
-                  }
-                  if (id.includes('axios')) {
-                     return 'axios';
-                  }
-                  // 其他第三方库归为 vendor
+                  if (id.includes('react') || id.includes('react-dom')) return 'react';
+                  if (id.includes('redux')) return 'redux';
+                  if (id.includes('lodash')) return 'lodash';
+                  if (id.includes('moment')) return 'moment';
                   return 'vendor';
                }
             }
+         }
+      }
+   },
+   server: {
+      // 添加代理配置示例
+      proxy: {
+         '/api': {
+            target: 'http://localhost:8080/',
+            changeOrigin: true,
+            rewrite: path => path.replace(/^\/api/, ''),
+            host: true, // 监听所有地址，包括本机 IP
+            port: 5173,
+            open: true // 可选：启动时自动打开浏览器
          }
       }
    }

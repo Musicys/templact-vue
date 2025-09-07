@@ -22,14 +22,6 @@ instance.interceptors.request.use(
       // 显示 loading
       loadingInstance = ElLoading.service(loadingOptions);
 
-      // 示例：携带 token（可选）
-      // const token = localStorage.getItem('token');
-      // if (token) {
-      //   config.headers.Authorization = `Bearer ${token}`;
-      // }
-
-      // if(config.)
-
       return config;
    },
    error => {
@@ -59,9 +51,14 @@ instance.interceptors.response.use(
          loadingInstance.close();
       }
 
-      // 错误提示
-      const msg = error.response?.data?.message || error.message || '请求失败';
-      ElMessage.error(msg);
+      //如果状态码为500
+      if (error.response.status == 500) {
+         ElMessage.error('服务器错误,请联系管理员');
+      } else {
+         // 错误提示
+         const msg = error.response?.data?.message || error.message || '请求失败';
+         ElMessage.error(msg);
+      }
 
       return Promise.reject(error);
    }
@@ -94,4 +91,23 @@ export const httpPost = (url, data, file = false) => {
       });
    }
    return instance.post(url, data);
+};
+
+/**
+ *
+ * @param {*} url 地址
+ * @param {*} data 参数
+ * @returns Promise
+ */
+export const httpPut = (url, data) => {
+   return instance.put(url, data);
+};
+
+/**
+ *
+ * @param {*} url 地址
+ * @returns Promise
+ */
+export const httpDelete = url => {
+   return instance.delete(url);
 };

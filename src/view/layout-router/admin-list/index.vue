@@ -206,7 +206,7 @@ const total = ref(0);
 // 分页
 const pagination = reactive({
    current: 1,
-   pageSize: 10
+   pageSize: 5
 });
 
 // 表单数据

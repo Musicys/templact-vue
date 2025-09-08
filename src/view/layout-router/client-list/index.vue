@@ -1,6 +1,6 @@
 <template>
    <!-- 搜索表单 -->
-   <el-card class="mb-6 shadow-sm">
+   <el-card class="mb-2 shadow-sm">
       <template #header>
          <div class="flex items-center justify-between">
             <span class="text-lg font-medium text-gray-700">搜索条件</span>
@@ -111,7 +111,7 @@
       </el-table>
 
       <!-- 分页 -->
-      <div class="flex justify-center mt-6">
+      <div class="flex justify-center mt-4">
          <el-pagination
             v-model:current-page="pagination.current"
             v-model:page-size="pagination.pageSize"

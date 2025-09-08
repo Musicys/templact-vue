@@ -17,6 +17,8 @@ export interface ListUserRequest {
    userAccount?: string;
    gender?: number;
    userStatus?: number;
+   sortField?: string;
+   sortOrder?: 'ascend' | 'descend';
 }
 
 export interface Page<T> {

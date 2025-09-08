@@ -11,6 +11,8 @@ export interface Dynamic {
    createTime: string; // ISO 时间字符串
    updateTime: string;
    publishTime?: string; // 发布时间（可选）
+   province?: string; //地址
+   district?: string; //详细地址
 }
 
 export interface ListDynamicRequest {
@@ -21,6 +23,8 @@ export interface ListDynamicRequest {
    status?: number;
    startTime?: string;
    endTime?: string;
+   sortField?: string;
+   sortOrder?: 'ascend' | 'descend';
 }
 
 export interface Page<T> {

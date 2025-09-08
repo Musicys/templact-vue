@@ -19,6 +19,8 @@ export interface ListAdminRequest {
    useraccount?: string;
    userrole?: number;
    userstatus?: number;
+   sortField?: string;
+   sortOrder?: 'ascend' | 'descend';
 }
 
 export interface PostaddAdmin {

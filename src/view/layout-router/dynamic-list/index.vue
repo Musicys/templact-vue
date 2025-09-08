@@ -1,6 +1,6 @@
 <template>
    <!-- 搜索表单 -->
-   <el-card class="mb-6 shadow-sm">
+   <el-card class="mb-2 shadow-sm">
       <template #header>
          <div class="flex items-center justify-between">
             <span class="text-lg font-medium text-gray-700">搜索条件</span>
@@ -8,40 +8,14 @@
       </template>
 
       <el-form :model="searchForm" :inline="true" class="flex flex-wrap gap-4" @submit.prevent="handleSearch">
-         <el-form-item label="标题" class="mb-4">
-            <el-input v-model="searchForm.title" placeholder="请输入标题" clearable class="w-48" />
-         </el-form-item>
-
-         <el-form-item label="作者" class="mb-4">
-            <el-input v-model="searchForm.authorName" placeholder="请输入作者" clearable class="w-48" />
-         </el-form-item>
-
-         <el-form-item label="状态" class="mb-4 w-48">
-            <el-select v-model="searchForm.status" placeholder="请选择状态" clearable>
-               <el-option label="草稿" :value="0" />
-               <el-option label="已发布" :value="1" />
-               <el-option label="已删除" :value="2" />
+         <el-form-item label="位置" class="mb-4 w-48">
+            <el-select v-model="searchForm.province" placeholder="请选择地区" clearable>
+               <el-option v-for="(item, idx) in DynamicDrsData" :key="idx" :label="item" :value="item" />
             </el-select>
          </el-form-item>
 
-         <el-form-item label="开始时间" class="mb-4">
-            <el-date-picker
-               v-model="searchForm.startTime"
-               type="date"
-               placeholder="选择开始时间"
-               format="YYYY-MM-DD"
-               value-format="YYYY-MM-DD"
-               class="w-48" />
-         </el-form-item>
-
-         <el-form-item label="结束时间" class="mb-4">
-            <el-date-picker
-               v-model="searchForm.endTime"
-               type="date"
-               placeholder="选择结束时间"
-               format="YYYY-MM-DD"
-               value-format="YYYY-MM-DD"
-               class="w-48" />
+         <el-form-item label="作者" class="mb-4">
+            <el-input v-model="searchForm.userid" placeholder="请输入作者" clearable class="w-48" />
          </el-form-item>
 
          <el-form-item class="mb-4">
@@ -89,20 +63,9 @@
             </template>
          </el-table-column>
 
-         <el-table-column label="坐标" width="180">
+         <el-table-column label="位置" width="180">
             <template #default="{ row }">
-               <span>({{ row.lat }}, {{ row.lng }})</span>
-            </template>
-         </el-table-column>
-
-         <el-table-column prop="comment" label="评论数" width="100" />
-         <el-table-column prop="love" label="点赞数" width="100" />
-
-         <el-table-column label="状态" width="100">
-            <template #default="{ row }">
-               <el-tag :type="row.isdelete === 0 ? 'success' : 'danger'" size="small">
-                  {{ row.isdelete === 0 ? '正常' : '已删除' }}
-               </el-tag>
+               <span>{{ row.province }}</span>
             </template>
          </el-table-column>
 
@@ -112,13 +75,7 @@
             </template>
          </el-table-column>
 
-         <el-table-column prop="updatetime" label="更新时间" width="180">
-            <template #default="{ row }">
-               {{ formatDate(row.updatetime) }}
-            </template>
-         </el-table-column>
-
-         <el-table-column label="操作" width="150" fixed="right">
+         <el-table-column label="操作" width="200" fixed="right">
             <template #default="{ row }">
                <el-button type="primary" size="small" @click="handleView(row)" class="mr-2">
                   <el-icon class="mr-1"><View /></el-icon>
@@ -133,7 +90,7 @@
       </el-table>
 
       <!-- 分页 -->
-      <div class="flex justify-center mt-6">
+      <div class="flex justify-center mt-4">
          <el-pagination
             v-model:current-page="pagination.current"
             v-model:page-size="pagination.pageSize"
@@ -185,23 +142,28 @@
 import { ref, reactive, onMounted } from 'vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { Search, Refresh, View, Delete } from '@element-plus/icons-vue';
-import { DynamicList, DynamicDel } from '@/api/dynamic';
+import { DynamicList, DynamicDel, DynamicDrs } from '@/api/dynamic';
 import type { Dynamic, ListDynamicRequest } from '@/api/dynamic/model/type';
 
 // 响应式数据
+const DynamicDrsData: Ref<string[]> = ref([]);
 const loading = ref(false);
 const selectedRows = ref<Dynamic[]>([]);
 const viewDialogVisible = ref(false);
 const currentDynamic = ref<Dynamic | null>(null);
 
 // 搜索表单
-const searchForm = reactive<ListDynamicRequest>({
-   title: '',
-   authorName: '',
-   status: undefined,
-   startTime: '',
-   endTime: ''
+const searchForm = reactive({
+   province: '',
+   userid: null
 });
+
+const datatinit = async () => {
+   let res = await DynamicDrs();
+   if (res.code == 0) {
+      DynamicDrsData.value = res.data;
+   }
+};
 
 // 表格数据
 const tableData = ref<Dynamic[]>([]);
@@ -258,7 +220,7 @@ const handleView = (row: Dynamic) => {
 
 const handleDelete = async (row: Dynamic) => {
    try {
-      await ElMessageBox.confirm(`确定要删除动态 "${row.title}" 吗？`, '确认删除', {
+      await ElMessageBox.confirm(`确定要删除动态吗？`, '确认删除', {
          confirmButtonText: '确定',
          cancelButtonText: '取消',
          type: 'warning'
@@ -323,6 +285,7 @@ const parseImgs = (imgarr: string): string[] => {
 
 // 生命周期
 onMounted(() => {
+   datatinit();
    loadData();
 });
 </script>

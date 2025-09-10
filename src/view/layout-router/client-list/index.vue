@@ -52,9 +52,15 @@
          </div>
       </template>
 
-      <el-table :data="tableData" v-loading="loading" stripe class="w-full" @selection-change="handleSelectionChange">
+      <el-table
+         :data="tableData"
+         v-loading="loading"
+         stripe
+         class="w-full"
+         @selection-change="handleSelectionChange"
+         @sort-change="sortchange">
          <el-table-column type="selection" width="55" />
-         <el-table-column prop="id" label="ID" width="80" />
+         <el-table-column prop="id" label="ID" width="80" sortable="id" />
 
          <el-table-column label="头像" width="80">
             <template #default="{ row }">
@@ -67,7 +73,7 @@
          <el-table-column prop="username" label="用户名" min-width="120" />
          <el-table-column prop="userAccount" label="账号" min-width="120" />
 
-         <el-table-column label="性别" width="80">
+         <el-table-column label="性别" width="80" sortable="gender">
             <template #default="{ row }">
                <el-tag :type="row.gender === 1 ? 'success' : 'info'" size="small">
                   {{ row.gender === 1 ? '男' : '女' }}
@@ -77,7 +83,7 @@
 
          <el-table-column prop="email" label="邮箱" min-width="180" />
 
-         <el-table-column label="状态" width="100">
+         <el-table-column label="状态" width="100" sortable="userStatus">
             <template #default="{ row }">
                <el-tag :type="row.userStatus === 0 ? 'success' : 'danger'" size="small">
                   {{ row.userStatus === 0 ? '正常' : '封禁' }}
@@ -85,7 +91,7 @@
             </template>
          </el-table-column>
 
-         <el-table-column prop="createTime" label="创建时间" width="180">
+         <el-table-column prop="createTime" label="创建时间" width="180" sortable="createTime">
             <template #default="{ row }">
                {{ formatDate(row.createTime) }}
             </template>
@@ -136,11 +142,13 @@ const loading = ref(false);
 const selectedRows = ref<User[]>([]);
 
 // 搜索表单
-const searchForm = reactive<ListUserRequest>({
+const searchForm = reactive<ListUserRequest & { sortField?: string; sortOrder?: 'ascend' | 'descend' }>({
    username: '',
    userAccount: '',
    gender: undefined,
-   userStatus: undefined
+   userStatus: undefined,
+   sortField: undefined,
+   sortOrder: undefined
 });
 
 // 表格数据
@@ -249,6 +257,27 @@ const handleCurrentChange = (current: number) => {
 
 const formatDate = (dateString: string) => {
    return new Date(dateString).toLocaleString('zh-CN');
+};
+
+const sortchange = (e: any) => {
+   if (e.order) {
+      searchForm.sortField = e.column.sortable as string;
+      switch (e.order) {
+         case 'ascending':
+            searchForm.sortOrder = 'ascend';
+            break;
+         case 'descending':
+            searchForm.sortOrder = 'descend';
+            break;
+         default:
+            searchForm.sortField = undefined;
+            searchForm.sortOrder = undefined;
+      }
+   } else {
+      searchForm.sortField = undefined;
+      searchForm.sortOrder = undefined;
+   }
+   loadData();
 };
 
 // 生命周期

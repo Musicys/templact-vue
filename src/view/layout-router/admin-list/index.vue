@@ -52,9 +52,15 @@
          </el-button>
       </template>
 
-      <el-table :data="tableData" v-loading="loading" stripe class="w-full" @selection-change="handleSelectionChange">
+      <el-table
+         :data="tableData"
+         v-loading="loading"
+         stripe
+         class="w-full"
+         @sort-change="sortchange"
+         @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" />
-         <el-table-column prop="id" label="ID" width="80" />
+         <el-table-column prop="id" label="ID" sortable="id" width="80" />
 
          <el-table-column label="头像" width="80">
             <template #default="{ row }">
@@ -67,7 +73,7 @@
          <el-table-column prop="username" label="用户名" min-width="120" />
          <el-table-column prop="useraccount" label="账号" min-width="120" />
 
-         <el-table-column label="性别" width="80">
+         <el-table-column label="性别" sortable="gender" width="80">
             <template #default="{ row }">
                <el-tag :type="row.gender === 1 ? 'success' : 'info'" size="small">
                   {{ row.gender === 1 ? '男' : '女' }}
@@ -77,7 +83,7 @@
 
          <el-table-column prop="email" label="邮箱" min-width="180" />
 
-         <el-table-column label="角色" min-width="150">
+         <el-table-column label="角色" sortable="userRole" min-width="150">
             <template #default="{ row }">
                <el-tag :type="row.userrole === 1 ? 'danger' : 'primary'" size="small">
                   {{ row.userrole === 1 ? '管理员' : '普通用户' }}
@@ -85,7 +91,7 @@
             </template>
          </el-table-column>
 
-         <el-table-column label="状态" width="100">
+         <el-table-column label="状态" sortable="userStatus" width="100">
             <template #default="{ row }">
                <el-tag :type="row.userstatus === 0 ? 'success' : 'danger'" size="small">
                   {{ row.userstatus === 0 ? '正常' : '禁用' }}
@@ -93,7 +99,7 @@
             </template>
          </el-table-column>
 
-         <el-table-column prop="createtime" label="创建时间" width="180">
+         <el-table-column prop="createtime" sortable="createtime" label="创建时间" width="180">
             <template #default="{ row }">
                {{ formatDate(row.createtime) }}
             </template>
@@ -196,7 +202,9 @@ const searchForm = reactive<ListAdminRequest>({
    username: '',
    useraccount: '',
    userrole: undefined,
-   userstatus: undefined
+   userstatus: undefined,
+   sortField: undefined,
+   sortOrder: 'ascend'
 });
 
 // 表格数据
@@ -262,6 +270,27 @@ const loadData = async () => {
    } finally {
       loading.value = false;
    }
+};
+
+const sortchange = e => {
+   if (e.order) {
+      searchForm.sortField = e.column.sortable;
+
+      switch (e.order) {
+         case 'ascending':
+            searchForm.sortOrder = 'ascend';
+            break;
+         case 'descending':
+            searchForm.sortOrder = 'descend';
+            break;
+         default:
+            searchForm.sortField = undefined;
+            searchForm.sortOrder = undefined;
+      }
+   } else {
+      searchForm.sortField = undefined;
+   }
+   loadData();
 };
 
 const handleSearch = () => {

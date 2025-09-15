@@ -72,8 +72,10 @@ import { useRoute } from 'vue-router';
 import router from '@/router';
 import { systemStore } from '@/store/modules/system';
 import logo from '@/assets/logo.webp';
+import { adminStore } from '@/store/modules/admin';
 const route = useRoute();
 const system = systemStore();
+const admin = adminStore();
 
 // 系统标题
 const systemTitle = ref(import.meta.env.VITE_APP_TITLE || 'LOGIN 管理系统');
@@ -109,7 +111,15 @@ onMounted(() => {
       }
    });
 
-   MENU.value = ROTER?.children?.filter((item: any) => item.meta && Object.keys(item.meta).length > 0) || [];
+   console.log('路由', ROTER);
+   const access = admin.$state.userinfo?.userrole == 1 ? 'admin' : 'user';
+   if (access == 'admin') {
+      MENU.value = ROTER?.children?.filter((item: any) => item.meta && Object.keys(item.meta).length > 0) || [];
+   } else {
+      MENU.value = ROTER?.children?.filter(
+         (item: any) => item.meta && Object.keys(item.meta).length > 0 && item.meta.tabConfig.access != 'Admin'
+      );
+   }
 });
 </script>
 

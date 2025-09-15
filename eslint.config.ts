@@ -40,8 +40,6 @@ export default [
          'comma-dangle': 'off',
          'no-mixed-spaces-and-tabs': 'off',
          'no-trailing-spaces': 'off',
-         semi: 'off',
-         quotes: 'off',
          'space-before-function-paren': 'off',
          'eol-last': 'off',
          'arrow-spacing': 'off',

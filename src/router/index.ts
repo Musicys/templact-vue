@@ -1,7 +1,18 @@
+import { Rote } from './../access/config';
 import { createRouter, createWebHistory } from 'vue-router';
 import loginFrom from '@/view/login/login-from.vue';
-
 import Layout from '@/layout/index.vue';
+import admin from './module/admin';
+import clinet from './module/clinet';
+import dynamic from './module/dynamic';
+import system from './module/system';
+const pagesconfig = [
+   admin, //管理员
+   clinet, //用户
+   dynamic, //动态
+   system //系统
+];
+
 // 2. 配置路由
 const routes = [
    {
@@ -42,104 +53,18 @@ const routes = [
                tabConfig: {
                   hideClose: true, // 隐藏关闭按钮
                   keepAlive: true, // 启用缓存
-                  name: '数据概览'
+                  name: '数据概览',
+                  access: Rote.user
                }
             }
          },
-
-         {
-            path: 'admin',
-            name: 'admin',
-            component: () => import('@/components/router.vue'),
-            meta: {
-               icon: 'Management',
-               setup: true, //是否是菜单
-               tabConfig: {
-                  hideClose: false, // 隐藏关闭按钮
-                  keepAlive: true, // 启用缓存
-                  name: '管理员管理中心',
-                  access: 'Admin'
-               }
-            },
-            children: [
-               {
-                  path: 'list',
-                  name: 'list',
-                  component: () => import('@/view/layout-router/admin-list/index.vue'),
-                  meta: {
-                     icon: 'Collection',
-                     tabConfig: {
-                        hideClose: false, // 隐藏关闭按钮
-                        keepAlive: true, // 启用缓存
-                        name: '管理员列表'
-                     }
-                  }
-               }
-            ]
-         },
-         {
-            path: 'client',
-            name: 'client',
-            component: () => import('@/components/router.vue'),
-            meta: {
-               icon: 'User',
-               setup: true, //是否是菜单
-               tabConfig: {
-                  hideClose: false, // 隐藏关闭按钮
-                  keepAlive: true, // 启用缓存
-                  name: '用户管理中心',
-                  access: 'Admin'
-               }
-            },
-            children: [
-               {
-                  path: 'user-list',
-                  name: 'user-list',
-                  component: () => import('@/view/layout-router/client-list/index.vue'),
-                  meta: {
-                     icon: 'Collection',
-                     tabConfig: {
-                        hideClose: false, // 隐藏关闭按钮
-                        keepAlive: true, // 启用缓存
-                        name: '用户列表'
-                     }
-                  }
-               }
-            ]
-         },
-         {
-            path: 'dynamic',
-            name: 'dynamic',
-            component: () => import('@/components/router.vue'),
-            meta: {
-               icon: 'User',
-               setup: true, //是否是菜单
-               tabConfig: {
-                  hideClose: false, // 隐藏关闭按钮
-                  keepAlive: true, // 启用缓存
-                  name: '动态管理中心',
-                  access: 'Admin'
-               }
-            },
-            children: [
-               {
-                  path: 'dynamic-list',
-                  name: 'dynamic-list',
-                  component: () => import('@/view/layout-router/dynamic-list/index.vue'),
-                  meta: {
-                     icon: 'Collection',
-                     tabConfig: {
-                        hideClose: false, // 隐藏关闭按钮
-                        keepAlive: true, // 启用缓存
-                        name: '动态列表'
-                     }
-                  }
-               }
-            ]
-         }
+         ...pagesconfig
       ]
    }
 ];
+
+console.log('表', routes);
+
 // 1.返回一个 router 实列，为函数，里面有配置项（对象） history
 const router = createRouter({
    history: createWebHistory(),

@@ -41,6 +41,8 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
+    FileUpdate: typeof import('./src/components/FileUpdate/index.vue')['default']
     RichEditor: typeof import('./src/components/RichEditor.vue')['default']
     Router: typeof import('./src/components/router.vue')['default']
     Router1: typeof import('./src/components/router1.vue')['default']

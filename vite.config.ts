@@ -77,6 +77,7 @@ export default defineConfig({
       }
    },
    server: {
+      open: true,
       // 添加代理配置示例
       proxy: {
          '/api': {

@@ -40,7 +40,7 @@ instance.interceptors.response.use(
       if (response.data.code != 0) {
          console.log(response.data);
 
-         ElMessage.error(response.data?.message || response.data?.data || '网络错误');
+         ElMessage.error(response.data.description || response.data?.message || response.data?.data || '网络错误');
       }
 
       return response.data; // 直接返回 data
